@@ -1,6 +1,7 @@
 package ir.dapperblondie.springwebmvc.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,12 @@ public class IBook {
         Name = name;
         this.ISBN = ISBN;
         Authors = authors;
+    }
+
+    public IBook(String name, String ISBN) {
+        Name = name;
+        this.ISBN = ISBN;
+        this.Authors = new HashSet<Author>();
     }
 
     public Long getID() {
@@ -54,5 +61,30 @@ public class IBook {
 
     public void setAuthors(Set<Author> authors) {
         Authors = authors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IBook iBook = (IBook) o;
+
+        return ID != null ? ID.equals(iBook.ID) : iBook.ID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return ID != null ? ID.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "IBook{" +
+                "ID=" + ID +
+                ", Name='" + Name + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", Authors=" + Authors +
+                '}';
     }
 }
