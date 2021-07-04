@@ -12,12 +12,17 @@ public class IBook {
     private Long ID;
     private String Name;
     private String ISBN;
+
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> Authors;
 
-    public IBook() {}
+    @ManyToOne
+    private Publisher Publisher;
+
+    public IBook() {
+    }
 
     public IBook(String name, String ISBN, Set<Author> authors) {
         Name = name;
@@ -61,6 +66,14 @@ public class IBook {
 
     public void setAuthors(Set<Author> authors) {
         Authors = authors;
+    }
+
+    public Publisher getPublishers() {
+        return Publisher;
+    }
+
+    public void setPublishers(Publisher publishers) {
+        Publisher = publishers;
     }
 
     @Override
